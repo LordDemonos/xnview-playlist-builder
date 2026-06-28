@@ -1,0 +1,37 @@
+# Build outputs
+bin/
+obj/
+*.user
+*.suo
+
+# IDE
+.vs/
+.idea/
+
+# Test / temp outputs
+test-output.sld
+*.log
+
+# Personal playlist data (never commit)
+*.sld
+!tests/fixtures/*.sld
+
+# Local reference art (not shipped)
+app-xnviewmp-512.webp
+
+# Agent session artifacts
+.planning/
+
+# Local example media referenced by old samples
+examples/
+
+# Publish output (build artifact, goes to Releases only)
+**/publish/
+XnViewPlaylistBuilder.exe
+
+# Cursor / agent
+.cursor/
+
+# OS
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,117 @@
+<Window x:Class="XnViewPlaylistBuilder.MediaHealthReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="File health report"
+        Height="620"
+        Width="860"
+        MinHeight="420"
+        MinWidth="640"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip"
+        Background="{StaticResource Brush.Background}"
+        Foreground="{StaticResource Brush.TextPrimary}">
+    <Grid Margin="24" Background="{StaticResource Brush.Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="File health report" Style="{StaticResource Text.Display}"/>
+            <TextBlock x:Name="SummaryTextBlock"
+                       Margin="0,4,0,0"
+                       Style="{StaticResource Text.Subtitle}"
+                       TextWrapping="Wrap"/>
+            <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                    <TextBlock Text="Missing on disk" Style="{StaticResource Text.Label}"/>
+                    <TextBlock x:Name="MissingCountTextBlock"
+                               Margin="0,2,0,0"
+                               FontSize="18"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0,0,8,0">
+                    <TextBlock Text="Empty (0 bytes)" Style="{StaticResource Text.Label}"/>
+                    <TextBlock x:Name="EmptyCountTextBlock"
+                               Margin="0,2,0,0"
+                               FontSize="18"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Invalid image" Style="{StaticResource Text.Label}"/>
+                    <TextBlock x:Name="InvalidCountTextBlock"
+                               Margin="0,2,0,0"
+                               FontSize="18"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource Panel.Card}">
+            <DataGrid x:Name="FindingsDataGrid"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      GridLinesVisibility="Horizontal"
+                      Background="Transparent"
+                      BorderThickness="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Issue"
+                                        Binding="{Binding Detail}"
+                                        Width="160"/>
+                    <DataGridTextColumn Header="Size"
+                                        Binding="{Binding SizeLabel}"
+                                        Width="88"/>
+                    <DataGridTextColumn Header="Path"
+                                        Binding="{Binding Path}"
+                                        Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,16,0,0">
+            <Button x:Name="RemoveInvalidFromPlaylistButton"
+                    Content="Remove invalid from playlist…"
+                    Style="{StaticResource Button.Secondary}"
+                    MinWidth="196"
+                    Margin="0,0,8,0"
+                    Visibility="Collapsed"
+                    Click="RemoveInvalidFromPlaylistButton_Click"/>
+            <Button x:Name="RemoveMissingFromPlaylistButton"
+                    Content="Remove missing from playlist…"
+                    Style="{StaticResource Button.Secondary}"
+                    MinWidth="196"
+                    Margin="0,0,8,0"
+                    Visibility="Collapsed"
+                    Click="RemoveMissingFromPlaylistButton_Click"/>
+            <Button x:Name="DeleteEmptyFilesButton"
+                    Content="Delete empty files &amp; remove from playlist…"
+                    Style="{StaticResource Button.Secondary}"
+                    MinWidth="260"
+                    Margin="0,0,8,0"
+                    Visibility="Collapsed"
+                    Click="DeleteEmptyFilesButton_Click"/>
+            <Button Content="Export report…"
+                    Style="{StaticResource Button.Secondary}"
+                    MinWidth="112"
+                    Margin="0,0,8,0"
+                    Click="ExportButton_Click"/>
+            <Button Content="Close"
+                    Style="{StaticResource Button.Primary}"
+                    MinWidth="88"
+                    IsDefault="True"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>
